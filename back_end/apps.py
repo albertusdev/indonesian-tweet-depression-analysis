@@ -9,8 +9,8 @@ from .depression_detector.preprocessing import key_norm_dict
 
 
 class App:
-    PATH_TO_KEY_NORM_FILE = '../../dictionary/key_norm.csv'
-    PATH_TO_CLEANED_DATASET = '../../labeled_dataset_cleaned.csv'
+    PATH_TO_KEY_NORM_FILE = './dictionary/key_norm.csv'
+    PATH_TO_CLEANED_DATASET = './labeled_dataset_cleaned.csv'
 
     classifier = None
 
