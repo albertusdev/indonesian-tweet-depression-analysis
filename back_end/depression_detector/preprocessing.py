@@ -1,8 +1,11 @@
+import pandas as pd
+
 from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFactory, StopWordRemover, ArrayDictionary
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 from nltk.tokenize import word_tokenize
 
 import re
+
 
 stop_factory = StopWordRemoverFactory()
 more_stopword = ['rt', 'dengan', 'ia', 'bahwa', 'oleh']
@@ -16,7 +19,10 @@ stop_word_remover = StopWordRemover(ArrayDictionary(stop_words))
 # Create stemmer
 stemmer = StemmerFactory().create_stemmer()
 
-key_norm_dict = {}
+PATH_TO_KEY_NORM_FILE = './dictionary/key_norm.csv'
+
+key_norm = pd.read_csv(PATH_TO_KEY_NORM_FILE).drop(['_id'], axis=1)
+key_norm_dict = {key_norm['singkat'][i]: key_norm['hasil'][i] for i in range(len(key_norm))}
 
 
 def formalize(word):

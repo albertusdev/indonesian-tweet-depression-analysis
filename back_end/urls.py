@@ -16,9 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from .views import get_depression_prediction
+from .views import get_depression_prediction, retrain
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', get_depression_prediction)
+    path('', get_depression_prediction),
+    path('retrain', retrain)
 ]

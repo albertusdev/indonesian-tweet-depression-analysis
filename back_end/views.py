@@ -19,3 +19,7 @@ def get_depression_prediction(request):
             result[key] = 'Terdeteksi Normal'
     return JsonResponse(result)
 
+
+def retrain(request):
+    App.start()
+    return JsonResponse({"message": "Finish retraining"})

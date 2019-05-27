@@ -6,7 +6,6 @@ from back_end.apps import App
 
 if __name__ == '__main__':
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'back_end.settings')
-    App.start()
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
