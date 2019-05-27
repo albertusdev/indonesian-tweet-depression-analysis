@@ -105,3 +105,6 @@ venv.bak/
 
 # twint
 twint/
+
+node_modules/
+.idea
