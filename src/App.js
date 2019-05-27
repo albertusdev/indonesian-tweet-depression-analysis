@@ -5,6 +5,7 @@ import Axios from "axios";
 
 function App() {
   const [tweet, setTweet] = useState("");
+  const [result, setResult] = useState("");
   const handleSubmit = async () => {
     if (tweet === "") {
       window.alert("Konten tweet tidak boleh kosong.");
@@ -14,22 +15,28 @@ function App() {
       return;
     }
     console.log(tweet);
-    const { data } = Axios.post(
-      "https://id-tweet-depression-detection.herokuapp.com",
-      {
-        tweet: tweet
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods":
-            "GET, POST, PATCH, PUT, DELETE, OPTIONS",
-          "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token"
+    let numOfRetry = 2;
+    setResult("Loading...");
+    while (numOfRetry > 0) {
+      try {
+        const { data, status } = await Axios.post(
+          "https://id-tweet-depression-detection.herokuapp.com",
+          {
+            tweet: tweet
+          }
+        );
+        console.log(data, status);
+        const message = data["LinearSVC"];
+        setResult(message);
+        if (status === 200) {
+          numOfRetry = 0;
         }
+      } catch (e) {
+        setResult("Oops. There is some error. Sorry!");
+        console.log(e);
       }
-    );
-    console.log(data);
+      --numOfRetry;
+    }
   };
   return (
     <div className="App">
@@ -47,6 +54,7 @@ function App() {
           />
         </div>
         <button onClick={handleSubmit}>Submit</button>
+        {result && <h4>{result}</h4>}
       </header>
     </div>
   );
